@@ -7,7 +7,39 @@
     "longName": "Tope!",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/Logo.png",
+                "menuIcon": true,
+                "name": "IMAGE_LOGO_MENU",
+                "type": "png"
+            },
+            {
+                "file": "images/add_contact.png",
+                "name": "IMAGE_ADD_CONTACT_ACTION_BAR",
+                "type": "png"
+            },
+            {
+                "file": "images/addno_contact.png",
+                "name": "IMAGE_ADDNO_CONTACT_ACTION_BAR",
+                "type": "png"
+            },
+            {
+                "file": "images/logo_wait.png",
+                "name": "IMAGE_LOGO_WAIT",
+                "type": "png-trans"
+            },
+            {
+                "file": "images/logo_tope.png",
+                "name": "IMAGE_LOGO_TOPE",
+                "type": "png-trans"
+            },
+            {
+                "file": "fonts/Lato-Regular.ttf",
+                "name": "LATO_REGULAR_16",
+                "type": "font"
+            }
+        ]
     },
     "shortName": "Tope!",
     "uuid": "54ccf6fe-1af4-456a-8ee8-4726c96d0bcd",
