@@ -43,8 +43,8 @@ void up_single_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 void config_provider_response(void *context) {
+	window_single_click_subscribe(BUTTON_ID_BACK, back_and_down_single_click_handler);
 	window_single_click_subscribe(BUTTON_ID_DOWN, back_and_down_single_click_handler);
-	window_single_click_subscribe(BUTTON_ID_UP, up_single_click_handler);
 	window_single_click_subscribe(BUTTON_ID_UP, up_single_click_handler);
 }
 
@@ -54,26 +54,16 @@ static void window_response_load(Window *window) {
 	// Create Bitmap
 	image_add_contact_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_ADD_CONTACT_ACTION_BAR);
 	image_addno_contact_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_ADDNO_CONTACT_ACTION_BAR);
-	switch(time_ms(NULL, NULL)%3){
-		case 0:
-			image_profile_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PROFIL_BATMAN);
-		break;
-		case 1:
-			image_profile_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PROFIL_IRONMAN);
-		break;
-		default:
-			image_profile_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PROFIL_CAPTAINAMERICA);
-		break;
-	}
+	image_profile_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PROFIL);
 	// Create Name Text Layer
-	window_response_text_name_layer = text_layer_create(GRect(0, 120, 124, 25));
+	window_response_text_name_layer = text_layer_create(GRect(0, 108, 124, 40));
 	text_layer_set_font(window_response_text_name_layer, lato_font);
 	text_layer_set_text_color(window_response_text_name_layer, GColorBlack);
 	text_layer_set_text_alignment(window_response_text_name_layer, GTextAlignmentCenter);
 	text_layer_set_text(window_response_text_name_layer, "Name");
 	layer_add_child(window_get_root_layer(window_response), text_layer_get_layer(window_response_text_name_layer));
 	// Create Profile Image Layer
-	window_response_profil_layer = bitmap_layer_create(GRect(10, 10, 100, 100));
+	window_response_profil_layer = bitmap_layer_create(GRect(16, 8, 92, 92));
 	bitmap_layer_set_bitmap(window_response_profil_layer, image_profile_bitmap);
 	layer_add_child(window_get_root_layer(window_response), bitmap_layer_get_layer(window_response_profil_layer));
 	// Create Action Bar Layer

@@ -9,18 +9,8 @@
     "resources": {
         "media": [
             {
-                "file": "images/profil_captainamerica.png",
-                "name": "IMAGE_PROFIL_CAPTAINAMERICA",
-                "type": "png"
-            },
-            {
-                "file": "images/profil_ironman.png",
-                "name": "IMAGE_PROFIL_IRONMAN",
-                "type": "png"
-            },
-            {
-                "file": "images/profil_batman.png",
-                "name": "IMAGE_PROFIL_BATMAN",
+                "file": "images/Profil.png",
+                "name": "IMAGE_PROFIL",
                 "type": "png"
             },
             {
