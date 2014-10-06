@@ -1,4 +1,4 @@
-TOPE-PebbleApp
+pebble-app-for-tope
 ==============
 
-Pebble App for TOPE! Application
+Pebble App for TOPE!
