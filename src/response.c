@@ -1,11 +1,9 @@
 #include <pebble.h>
-#include "globals.h"
-#include "response.h"
-#include "tope.h"
+#include <globals.h>
+#include <response.h>
+#include <tope.h>
 
 static Window *window_response;
-
-static GFont lato_font;
 
 static TextLayer *window_response_text_name_layer;
 static BitmapLayer *window_response_profil_layer;
@@ -48,16 +46,14 @@ void config_provider_response(void *context) {
 	window_single_click_subscribe(BUTTON_ID_UP, up_single_click_handler);
 }
 
-static void window_response_load(Window *window) {
-	// Load Fonts
-	lato_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_LATO_REGULAR_16));
+void window_response_load(Window *window) {
 	// Create Bitmap
 	image_add_contact_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_ADD_CONTACT_ACTION_BAR);
 	image_addno_contact_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_ADDNO_CONTACT_ACTION_BAR);
 	image_profile_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_PROFIL);
 	// Create Name Text Layer
 	window_response_text_name_layer = text_layer_create(GRect(0, 108, 124, 40));
-	text_layer_set_font(window_response_text_name_layer, lato_font);
+	text_layer_set_font(window_response_text_name_layer, FONT_LATO);
 	text_layer_set_text_color(window_response_text_name_layer, GColorBlack);
 	text_layer_set_text_alignment(window_response_text_name_layer, GTextAlignmentCenter);
 	text_layer_set_text(window_response_text_name_layer, "Name");
@@ -74,8 +70,7 @@ static void window_response_load(Window *window) {
 	action_bar_layer_set_icon(window_response_action_bar_layer, BUTTON_ID_DOWN, image_addno_contact_bitmap);
 }
 
-static void window_response_unload(Window *window) {
-	fonts_unload_custom_font(lato_font);
+void window_response_unload(Window *window) {
 	text_layer_destroy(window_response_text_name_layer);
 	bitmap_layer_destroy(window_response_profil_layer);
 	action_bar_layer_destroy(window_response_action_bar_layer);

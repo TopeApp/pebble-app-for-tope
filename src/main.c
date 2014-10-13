@@ -1,7 +1,7 @@
 #include <pebble.h>
-#include "globals.h"
-#include "response.h"
-#include "tope.h"
+#include <globals.h>
+#include <response.h>
+#include <tope.h>
 
 void out_sent_handler(DictionaryIterator *sent, void *context) {
 	// outgoing message was delivered
@@ -26,7 +26,8 @@ void in_dropped_handler(AppMessageResult reason, void *context) {
 	// incoming message dropped
 }
 
-static void init() {
+void init() {
+	init_globals();
 	init_tope();
 	
 	// App Message Handler
@@ -46,9 +47,10 @@ static void init() {
 	app_message_outbox_send();
 }
 
-static void deinit() {
+void deinit() {
 	deinit_tope();
 	deinit_response();
+	deinit_globals();
 }
 
 int main(void) {

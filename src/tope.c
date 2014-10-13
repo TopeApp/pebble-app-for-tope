@@ -1,11 +1,9 @@
 #include <pebble.h>
-#include "globals.h"
-#include "tope.h"
-#include "response.h"
+#include <globals.h>
+#include <tope.h>
+#include <response.h>
 
 static Window *window_tope;
-
-static GFont lato_font;
 
 static BitmapLayer *window_tope_background_layer;
 static TextLayer *window_tope_text_layer;
@@ -24,7 +22,7 @@ void select_single_click_handler(ClickRecognizerRef recognizer, void *context) {
 	app_message_outbox_send();
 }
 
-static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 	tope_sharing++;
 	if(tope_sharing>3){
 		text_layer_set_text(window_tope_text_layer, "Tope it!");
@@ -39,15 +37,10 @@ void accel_tap_handler(AccelAxisType axis, int32_t direction) {
 		// Change Display
 		text_layer_set_text(window_tope_text_layer, "Sharing ...");
 		bitmap_layer_set_bitmap(window_tope_logo_layer, logo_tope_bitmap);
-		time_t s;
-		uint16_t ms;
-		time_ms(&s, &ms);
 		// Send Message to Mobile App
 		DictionaryIterator *iter;
 		app_message_outbox_begin(&iter);
 		dict_write_uint8( iter, 0, MESSAGE_TYPE_TOPE_EVENT);
-		dict_write_uint16( iter, 1, s);
-		dict_write_uint16( iter, 2, ms);
 		app_message_outbox_send();
 		// Go to Sharing Mode
 		tope_sharing++;
@@ -59,9 +52,7 @@ void config_provider_tope(void *context) {
 	window_single_click_subscribe(BUTTON_ID_SELECT, select_single_click_handler);
 }
 
-static void window_tope_load(Window *window) {
-	// Load Fonts
-	lato_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_LATO_REGULAR_16));
+void window_tope_load(Window *window) {
 	// Create Bitmap
 	logo_wait_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_LOGO_WAIT_WHITE);
 	logo_tope_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_LOGO_TOPE_WHITE);
@@ -71,7 +62,7 @@ static void window_tope_load(Window *window) {
 	layer_add_child(window_get_root_layer(window_tope), bitmap_layer_get_layer(window_tope_background_layer));
 	// Create Text Layer
 	window_tope_text_layer = text_layer_create(GRect(0, 120, 144, 25));
-	text_layer_set_font(window_tope_text_layer, lato_font);
+	text_layer_set_font(window_tope_text_layer, FONT_LATO);
 	text_layer_set_background_color(window_tope_text_layer, GColorClear);
 	text_layer_set_text_color(window_tope_text_layer, GColorWhite);
 	text_layer_set_text_alignment(window_tope_text_layer, GTextAlignmentCenter);
@@ -83,16 +74,15 @@ static void window_tope_load(Window *window) {
 	layer_add_child(window_get_root_layer(window_tope), bitmap_layer_get_layer(window_tope_logo_layer));
 }
 
-static void window_tope_appear(Window *window) {
+void window_tope_appear(Window *window) {
 	accel_tap_service_subscribe(accel_tap_handler);
 }
 
-static void window_tope_disappear(Window *window) {
+void window_tope_disappear(Window *window) {
 	accel_tap_service_unsubscribe();
 }
 
-static void window_tope_unload(Window *window) {
-	fonts_unload_custom_font(lato_font);
+void window_tope_unload(Window *window) {
 	gbitmap_destroy(logo_wait_bitmap);
 	gbitmap_destroy(logo_tope_bitmap);
 	bitmap_layer_destroy(window_tope_background_layer);
