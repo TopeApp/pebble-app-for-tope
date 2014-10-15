@@ -10,7 +10,6 @@ Communication with Android App
 
 When the Tope! Pebble App start.
 
-Send :
 ```C
 DataSent[0] = (uint8) messageType = 0
 ```
@@ -19,7 +18,6 @@ DataSent[0] = (uint8) messageType = 0
 
 When user does a tope.
 
-Send :
 ```C
 DataSent[0] = (uint8) messageType = 1
 DataSent[1] = (uint8) seconde             // remove in next version
@@ -30,7 +28,6 @@ DataSent[2] = (uint8) millisecondes       // remove in next version
 
 When user validate a tope.
 
-Send :
 ```C
 DataSent[0] = (uint8) messageType = 2
 DataSent[1] = (uint8) validate            // 0 if user refuse and 1 if user accept
@@ -42,7 +39,6 @@ DataSent[1] = (uint8) validate            // 0 if user refuse and 1 if user acce
 
 When the server return a response "tope".
 
-Receive :
 ```C
 DataReceived[0] = (uint8) messageType = 0
 DataReceived[1] = (cstring) userName        // Name of the person who has just topped with user
